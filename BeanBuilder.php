@@ -13,7 +13,7 @@ abstract class BeanBuilder {
      *
      * @return void
      */
-    protected function __construct(String $moduleName) {
+    protected function __construct($moduleName) {
         $this->$bean = BeanFactory::newBean($moduleName);
     }
     

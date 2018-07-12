@@ -75,7 +75,7 @@ class TasksBuilder extends BeanBuilder
      * @param int $duration
      * @return TasksBuilder
      */
-    function duration(int $duration)
+    function duration($duration)
     {
         $start = empty($this->bean->date_start) ? new DateTime('now') : $this->bean->date_start;
         $end = new DateTime('now + ' . $duration . ' days');
