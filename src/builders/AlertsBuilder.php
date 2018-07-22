@@ -1,5 +1,6 @@
 <?php
-require_once 'BeanBuilder.php';
+require_once '../core/BeanBuilder.php';
+require_once '../model/AlertsType.php';
 
 /**
  *  Class AlertsBuilder
@@ -12,18 +13,7 @@ require_once 'BeanBuilder.php';
  */
 class AlertsBuilder extends BeanBuilder
 {
-    /**
-     * Constants that holds alert types.
-     *
-     * @var string $TYPE_INFO Info type
-     * @var string $TYPE_SUCCESS Success type
-     * @var string $TYPE_WARNING Warning type
-     * @var string $TYPE_ERROR Error type
-     */
-    const TYPE_INFO = 'info';
-    const TYPE_SUCCESS = 'success';
-    const TYPE_WARNING = 'warning';
-    const TYPE_ERROR = 'danger';
+
 
     /**
      * Constructor
@@ -59,7 +49,7 @@ class AlertsBuilder extends BeanBuilder
      *            type one of $TYPE_INFO / $TYPE_SUCCESS / $TYPE_WARNING / $TYPE_ERROR
      * @return AlertsBuilder
      */
-    function type($type = self::TYPE_INFO)
+    function type($type = AlertsType::TYPE_INFO)
     {
         $this->bean->type = $type;
         return $this;

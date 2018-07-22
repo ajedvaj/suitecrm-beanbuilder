@@ -1,5 +1,5 @@
 <?php
-require_once 'BeanBuilder.php';
+require_once '../core/BeanBuilder.php';
 
 class EmailsBuilder extends BeanBuilder {
     

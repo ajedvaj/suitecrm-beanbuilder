@@ -1,5 +1,6 @@
 <?php
-require_once 'BeanBuilder.php';
+require_once '../core/BeanBuilder.php';
+require_once '../model/CurrenciesStatus.php';
 
 /**
  *  Class CurrenciesBuilder
@@ -12,8 +13,6 @@ require_once 'BeanBuilder.php';
  */
 class CurrenciesBuilder extends BeanBuilder
 {
-    const STATUS_ACTIVE = "Active";
-    const STATUS_INACTIVE = "Inactive";
 
     /**
      * Constructor

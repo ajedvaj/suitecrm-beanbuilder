@@ -1,6 +1,6 @@
 <?php
 
-require_once 'BeanBuilder.php';
+require_once '../core/BeanBuilder.php';
 
 /**
  *  Class SecurityGroupBuilder

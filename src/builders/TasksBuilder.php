@@ -1,5 +1,7 @@
 <?php
-require_once 'BeanBuilder.php';
+require_once '../core/BeanBuilder.php';
+require_once '../model/TasksPriority.php';
+require_once '../model/TasksStatus.php';
 
 /**
  * Class TasksBuilder
@@ -12,16 +14,6 @@ require_once 'BeanBuilder.php';
  */
 class TasksBuilder extends BeanBuilder
 {
-    
-    const PRIORITY_HIGH = "High";
-    const PRIORITY_MEDIUM = "Meduim";
-    const PRIORITY_LOW = "Low";
-    
-    const STATUS_NOT_STARTED = "Not Started";
-    const STATUS_IN_PROGRESS = "In Progress";
-    const STATUS_COMPLETED = "Completed";
-    const STATUS_PENDING_INPUT  = "Pending Input";
-    const STATUS_DEFERRED = "Deferred";
 
     /**
      * Constructor
@@ -35,7 +27,7 @@ class TasksBuilder extends BeanBuilder
         parent::__construct('Tasks');
     }
 
-    function status($status = self::STATUS_NOT_STARTED)
+    function status($status = TasksStatus::STATUS_NOT_STARTED)
     {
         $this->bean->status = $status;
         return $this;
@@ -48,7 +40,7 @@ class TasksBuilder extends BeanBuilder
         return $this;
     }
 
-    function priorty($priority = self::PRIORITY_MEDIUM)
+    function priorty($priority = TasksPriority::PRIORITY_MEDIUM)
     {
         $this->bean->priority = $priority;
         return $this;
