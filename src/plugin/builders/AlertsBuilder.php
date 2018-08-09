@@ -49,7 +49,7 @@ class AlertsBuilder extends BeanBuilder
      *            type one of $TYPE_INFO / $TYPE_SUCCESS / $TYPE_WARNING / $TYPE_ERROR
      * @return AlertsBuilder
      */
-    function type($type = AlertsType::TYPE_INFO)
+    function type($type = AlertsType::INFO)
     {
         $this->bean->type = $type;
         return $this;

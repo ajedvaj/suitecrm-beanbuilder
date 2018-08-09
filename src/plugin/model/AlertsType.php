@@ -8,8 +8,8 @@ class AlertsType{
      * @var string $TYPE_WARNING Warning type
      * @var string $TYPE_ERROR Error type
      */
-    const TYPE_INFO = 'info';
-    const TYPE_SUCCESS = 'success';
-    const TYPE_WARNING = 'warning';
-    const TYPE_ERROR = 'danger';
+    const INFO = 'info';
+    const SUCCESS = 'success';
+    const WARNING = 'warning';
+    const ERROR = 'danger';
 }
