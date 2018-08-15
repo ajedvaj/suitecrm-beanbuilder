@@ -43,6 +43,10 @@ class CustomModuleBuilderController extends ModuleBuilderController
                     $clazzTemplate = "<?php \r\n\r\n";
                     $clazzTemplate = $clazzTemplate . "class " . $clazzName . " { \r\n\r\n";
                     $clazzTemplate = $clazzTemplate . $dropdown . "\r\n}";
+                    $modelFilePath = $modelFilePath . $moduleName . '/';
+                    if (!file_exists($modelFilePath)) {
+                        mkdir($modelFilePath, 0775, true);
+                    }
                     file_put_contents($modelFilePath . "{$clazzName}.php", $clazzTemplate);
                 }
             }
