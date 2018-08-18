@@ -14,7 +14,9 @@ class CustomModuleBuilderController extends ModuleBuilderController
         $rawurldecode = rawurldecode($listValue);
         $htmldecode = html_entity_decode($rawurldecode, ENT_QUOTES);
         $options = $json->decode($htmldecode);
-        $dropdown = "";
+        $dropdownModelClass = array();
+        $dropdownModelClass['fields'] = array();
+        
         foreach ($options as $item) {
             $keytemp = SugarCleaner::stripTags(from_html($item[0]), false);
             $valuetemp = SugarCleaner::stripTags(from_html($item[1]), false);
@@ -27,11 +29,10 @@ class CustomModuleBuilderController extends ModuleBuilderController
                 $keytempVal = "VALUE_" . $keytempVal;
             }
             
-            $dropdown = $dropdown . "\t const " . $keytempVal . " = \"" . $keytemp . "\"; \r\n";
+            $dropdownModelClass['fields'][$keytempVal] = $keytemp;
         }
         
         $moduleList = array_intersect($GLOBALS['moduleList'], array_keys($GLOBALS['beanList']));
-        $clazzNameList = array();
         
         foreach ($moduleList as $moduleName) {
             $bean = BeanFactory::getBean($moduleName);
@@ -39,18 +40,25 @@ class CustomModuleBuilderController extends ModuleBuilderController
             
             foreach ($fieldDefs as $fieldName => $fieldDef) {
                 if (array_key_exists('options', $fieldDef) && $fieldDef['options'] == $dropdownName) {
-                    $clazzName = $moduleName . ucfirst($fieldName);
-                    $clazzTemplate = "<?php \r\n\r\n";
-                    $clazzTemplate = $clazzTemplate . "class " . $clazzName . " { \r\n\r\n";
-                    $clazzTemplate = $clazzTemplate . $dropdown . "\r\n}";
+                    $dropdownModelClass['name'] = $moduleName . ucfirst($fieldName);
                     $modelFilePath = $modelFilePath . $moduleName . '/';
+                    
                     if (!file_exists($modelFilePath)) {
                         mkdir($modelFilePath, 0775, true);
                     }
-                    file_put_contents($modelFilePath . "{$clazzName}.php", $clazzTemplate);
+                    
+                    $smarty = new Sugar_Smarty ( ) ;
+                    $smarty->left_delimiter = '{{' ;
+                    $smarty->right_delimiter = '}}' ;
+                    $smarty->assign ( 'class', $dropdownModelClass ) ;
+                    
+                    $fp = sugar_fopen($modelFilePath . $dropdownModelClass['name'] . '.php', 'w');
+                    fwrite($fp, $smarty->fetch('custom/modules/ModuleBuilder/tpls/ModelClass.tpl'));
+                    fclose($fp);
                 }
             }
         }
+        
         /* ******* CUSTOM END ******* */
         
         require_once 'modules/ModuleBuilder/parsers/parser.dropdown.php';
