@@ -66,4 +66,52 @@ class CustomModuleBuilderController extends ModuleBuilderController
         $parser->saveDropDown($_REQUEST);
         $this->view = 'dropdowns';
     }
+
+    function action_GenerateBuilder()
+    {
+        
+        $moduleName = $_REQUEST['view_module'];
+        $builderFilePath = 'custom/include/beanbuilder/builders/';
+        $modelFilePath = 'custom/include/beanbuilder/model/';      
+        
+        $builderClass = array();
+        $builderClass['name'] = $moduleName . "Builder";
+        $builderClass['module'] = $moduleName;
+        $builderClass['fields'] = array();
+        $builderClass['requires'] = array();
+        
+        $bean = BeanFactory::getBean($moduleName);
+        $fieldDefs = $bean->getFieldDefinitions();
+        $fieldsSkipArray = array('id','deleted', 'name','description', 'date_entered', 'date_modified', 'created_by', 'modified_by', 'email1',
+            'modified_user_id','modified_by_name','created_by','created_by_name','created_by_link','modified_user_link','assigned_user_id',
+            'assigned_user_name','email','billing_address_street_2','billing_address_street_3','billing_address_street_4',
+            'shipping_address_street_2','shipping_address_street_3','shipping_address_street_4', 'email_addresses_non_primary',
+            'parent_name','contact_name','contact_phone','contact_email'
+        );
+        
+        foreach ($fieldDefs as $fieldName => $fieldDef) {
+            
+            if(in_array($fieldName, $fieldsSkipArray) || $fieldDef['type'] == 'link'){
+                continue;
+            }
+            
+            if (array_key_exists('options', $fieldDef) || $fieldDef['type'] == 'multienum') {
+                $requireClassName = $moduleName . ucfirst($fieldName);
+                $builderClass['requires'][] = '../model/' . $moduleName . '/' . $requireClassName . '.php';
+            }
+            
+            $builderClass['fields'][$fieldName] = $fieldDef;
+        }
+        
+        $smarty = new Sugar_Smarty();
+        $smarty->left_delimiter = '{{';
+        $smarty->right_delimiter = '}}';
+        $smarty->assign('class', $builderClass);
+        
+        $fp = sugar_fopen($builderFilePath . $builderClass['name'] . '.php', 'w');
+        fwrite($fp, $smarty->fetch('custom/modules/ModuleBuilder/tpls/BuilderClass.tpl'));
+        fclose($fp);
+        
+    }
+    
 }

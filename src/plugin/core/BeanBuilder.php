@@ -14,7 +14,7 @@ abstract class BeanBuilder {
      * @return void
      */
     protected function __construct($moduleName) {
-        $this->$bean = BeanFactory::newBean($moduleName);
+        $this->bean = BeanFactory::newBean($moduleName);
     }
     
     /**
