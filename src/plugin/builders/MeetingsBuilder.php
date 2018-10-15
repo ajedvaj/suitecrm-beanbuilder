@@ -1,21 +1,63 @@
 <?php
 
 require_once 'custom/include/beanbuilder/core/BeanBuilder.php';
-require_once 'custom/include/beanbuilder/model/Calls/CallsStatus.php';
-require_once 'custom/include/beanbuilder/model/Calls/CallsDirection.php';
-require_once 'custom/include/beanbuilder/model/Calls/CallsReminder_time.php';
-require_once 'custom/include/beanbuilder/model/Calls/CallsEmail_reminder_time.php';
-require_once 'custom/include/beanbuilder/model/Calls/CallsRepeat_type.php';
+require_once 'custom/include/beanbuilder/model/Meetings/MeetingsStatus.php';
+require_once 'custom/include/beanbuilder/model/Meetings/MeetingsType.php';
+require_once 'custom/include/beanbuilder/model/Meetings/MeetingsReminder_time.php';
+require_once 'custom/include/beanbuilder/model/Meetings/MeetingsEmail_reminder_time.php';
+require_once 'custom/include/beanbuilder/model/Meetings/MeetingsRepeat_type.php';
+require_once 'custom/include/beanbuilder/model/Meetings/MeetingsDuration.php';
 
-class CallsBuilder extends BeanBuilder
+class MeetingsBuilder extends BeanBuilder
 {
 
     function __construct()
     {
-        parent::__construct('Calls');
+        parent::__construct('Meetings');
     }
-    
-    
+	
+    function location($location = '')
+    {
+        $this->bean->location = $location;
+        return $this;
+    }
+	
+    function password($password = '')
+    {
+        $this->bean->password = $password;
+        return $this;
+    }
+	
+    function join_url($join_url = '')
+    {
+        $this->bean->join_url = $join_url;
+        return $this;
+    }
+	
+    function host_url($host_url = '')
+    {
+        $this->bean->host_url = $host_url;
+        return $this;
+    }
+	
+    function displayed_url($displayed_url = '')
+    {
+        $this->bean->displayed_url = $displayed_url;
+        return $this;
+    }
+	
+    function creator($creator = '')
+    {
+        $this->bean->creator = $creator;
+        return $this;
+    }
+	
+    function external_id($external_id = '')
+    {
+        $this->bean->external_id = $external_id;
+        return $this;
+    }
+	
     function duration_hours($duration_hours = '')
     {
         $this->bean->duration_hours = $duration_hours;
@@ -52,9 +94,9 @@ class CallsBuilder extends BeanBuilder
         return $this;
     }
 	
-    function direction($direction = '')
+    function type($type = '')
     {
-        $this->bean->direction = $direction;
+        $this->bean->type = $type;
         return $this;
     }
 	
@@ -64,21 +106,9 @@ class CallsBuilder extends BeanBuilder
         return $this;
     }
 	
-    function reminder_checked($reminder_checked = '')
-    {
-        $this->bean->reminder_checked = $reminder_checked;
-        return $this;
-    }
-	
     function reminder_time($reminder_time = '')
     {
         $this->bean->reminder_time = $reminder_time;
-        return $this;
-    }
-	
-    function email_reminder_checked($email_reminder_checked = '')
-    {
-        $this->bean->email_reminder_checked = $email_reminder_checked;
         return $this;
     }
 	
@@ -100,9 +130,9 @@ class CallsBuilder extends BeanBuilder
         return $this;
     }
 	
-    function accept_status($accept_status = '')
+    function sequence($sequence = '')
     {
-        $this->bean->accept_status = $accept_status;
+        $this->bean->sequence = $sequence;
         return $this;
     }
 	
@@ -153,5 +183,30 @@ class CallsBuilder extends BeanBuilder
         $this->bean->recurring_source = $recurring_source;
         return $this;
     }
+    
+    function jjwg_maps_address_c($jjwg_maps_address_c = '')
+    {
+        $this->bean->jjwg_maps_address_c = $jjwg_maps_address_c;
+        return $this;
+    }
+	
+    function jjwg_maps_geocode_status_c($jjwg_maps_geocode_status_c = '')
+    {
+        $this->bean->jjwg_maps_geocode_status_c = $jjwg_maps_geocode_status_c;
+        return $this;
+    }
+	
+    function jjwg_maps_lat_c($jjwg_maps_lat_c = '')
+    {
+        $this->bean->jjwg_maps_lat_c = $jjwg_maps_lat_c;
+        return $this;
+    }
+	
+    function jjwg_maps_lng_c($jjwg_maps_lng_c = '')
+    {
+        $this->bean->jjwg_maps_lng_c = $jjwg_maps_lng_c;
+        return $this;
+    }
 	   
+	
 }

@@ -1,8 +1,8 @@
 <?php
 
-require_once '../core/BeanBuilder.php';
+require_once 'custom/include/beanbuilder/core/BeanBuilder.php';
 {{foreach from=$class.requires item='require'}}
-require_once('{{$require}}');
+require_once 'custom/include/beanbuilder/{{$require}}';
 {{/foreach}}
 
 class {{$class.name}} extends BeanBuilder

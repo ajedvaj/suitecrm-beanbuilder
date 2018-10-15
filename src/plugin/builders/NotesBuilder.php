@@ -1,65 +1,85 @@
 <?php
-require_once '../core/BeanBuilder.php';
 
-/**
- *  Class NotesBuilder
- *
- * Builder class for creating new Note beans. 
- * Class only creates new instance of an object, to persist this object one must call SugarBean::save() function.
- *
- * @package Custom/Notes/Builder
- * @author Antonio Jedvaj <antonio_vrb@hotmail.com>
- */
+require_once 'custom/include/beanbuilder/core/BeanBuilder.php';
+
 class NotesBuilder extends BeanBuilder
 {
 
-    /**
-     * Constructor
-     *
-     * Initializes new Notes bean
-     *
-     * @return void
-     */
     function __construct()
     {
         parent::__construct('Notes');
     }
-
-
-    function parent($parentType, $parentId)
+    
+    
+    function file_mime_type($file_mime_type = '')
     {
-        $this->bean->parent_type = $parentType;
-        $this->bean->parent_id = $parentId;
+        $this->bean->file_mime_type = $file_mime_type;
         return $this;
     }
-    
-    function contactId($contactId){
-        $this->bean->contact_id = $contactId;
+	
+    function file_url($file_url = '')
+    {
+        $this->bean->file_url = $file_url;
         return $this;
     }
-    
-    function contact(SugarBean $contact){
-        $this->bean->contact_id = $contact->id;
-        return $this;
-    }
-    
-    function displayInPortal($displayInPortal){
-        $this->bean->portal_flag = $displayInPortal;
-        return $this;
-    }
-    
-    function embedInEmail($embedInEmail){
-        $this->bean->embed_flag = $embedInEmail;
-        return $this;
-    }
-    
-    function fileMimeType($mimeType){
-        $this->bean->file_mime_type = $imeType;
-        return $this;
-    }
-    
-    function filename($filename){
+	
+    function filename($filename = '')
+    {
         $this->bean->filename = $filename;
+        return $this;
+    }
+	
+    function parent_type($parent_type = '')
+    {
+        $this->bean->parent_type = $parent_type;
+        return $this;
+    }
+	
+    function parent_id($parent_id = '')
+    {
+        $this->bean->parent_id = $parent_id;
+        return $this;
+    }
+	
+    function contact_id($contact_id = '')
+    {
+        $this->bean->contact_id = $contact_id;
+        return $this;
+    }
+	
+    function portal_flag($portal_flag = '')
+    {
+        $this->bean->portal_flag = $portal_flag;
+        return $this;
+    }
+	
+    function embed_flag($embed_flag = '')
+    {
+        $this->bean->embed_flag = $embed_flag;
+        return $this;
+    }
+	
+    function account_id($account_id = '')
+    {
+        $this->bean->account_id = $account_id;
+        return $this;
+    }
+	
+    function opportunity_id($opportunity_id = '')
+    {
+        $this->bean->opportunity_id = $opportunity_id;
+        return $this;
+    }
+	
+    function acase_id($acase_id = '')
+    {
+        $this->bean->acase_id = $acase_id;
+        return $this;
+    }
+	
+    function lead_id($lead_id = '')
+    {
+        $this->bean->lead_id = $lead_id;
         return $this;
     }
     
@@ -67,6 +87,5 @@ class NotesBuilder extends BeanBuilder
         $this->filename($filename)->fileMimeType($mimeType);
         return $this;
     }
-}
-
-?>
+	
+}

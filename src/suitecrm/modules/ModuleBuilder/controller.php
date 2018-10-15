@@ -83,7 +83,7 @@ class CustomModuleBuilderController extends ModuleBuilderController
         $bean = BeanFactory::getBean($moduleName);
         $fieldDefs = $bean->getFieldDefinitions();
         $fieldsSkipArray = array('id','deleted', 'name','description', 'date_entered', 'date_modified', 'created_by', 'modified_by', 'email1',
-            'modified_user_id','modified_by_name','created_by','created_by_name','created_by_link','modified_user_link','assigned_user_id',
+            'modified_user_id','modified_by_name','created_by','created_by_name','created_by_link','modified_user_link', 'assigned_user_id',
             'assigned_user_name','email','billing_address_street_2','billing_address_street_3','billing_address_street_4',
             'shipping_address_street_2','shipping_address_street_3','shipping_address_street_4', 'email_addresses_non_primary',
             'parent_name','contact_name','contact_phone','contact_email'
@@ -95,9 +95,9 @@ class CustomModuleBuilderController extends ModuleBuilderController
                 continue;
             }
             
-            if (array_key_exists('options', $fieldDef) || $fieldDef['type'] == 'multienum') {
+            if ($fieldDef['type'] == 'enum' || $fieldDef['type'] == 'multienum') {
                 $requireClassName = $moduleName . ucfirst($fieldName);
-                $builderClass['requires'][] = '../model/' . $moduleName . '/' . $requireClassName . '.php';
+                $builderClass['requires'][] = 'model/' . $moduleName . '/' . $requireClassName . '.php';
             }
             
             $builderClass['fields'][$fieldName] = $fieldDef;
@@ -111,6 +111,7 @@ class CustomModuleBuilderController extends ModuleBuilderController
         $fp = sugar_fopen($builderFilePath . $builderClass['name'] . '.php', 'w');
         fwrite($fp, $smarty->fetch('custom/modules/ModuleBuilder/tpls/BuilderClass.tpl'));
         fclose($fp);
+        SugarApplication::redirect("index.php?module=ModuleBuilder&action=index&type=studio");
         
     }
     
