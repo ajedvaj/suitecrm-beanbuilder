@@ -14,7 +14,9 @@ This plugin consists of two main parts, a classes with string constants of value
 	* Wether you have created a custom module, or you're adding custom fields to existing modules you can generate a builder class. 
 
 
+## Download
 
+Download is avaliable at the SuiteCRM Store: https://store.suitecrm.com/addons/suitecrm-beanbuilder
 
 ## Installation
 
